@@ -94,13 +94,12 @@ plotChart = (data, xValueKey, yValueKey) => {
   console.log(sumstat);
   console.log(sumstat2);
 
-
   const ul = d3.select("ul");
 
   sumstat2.forEach((dataset) => {
     const li = ul.append("li").attr("class", "caret");
 
-    li.append("input").attr("type", "Checkbox");
+    li.append("input").attr("type", "Checkbox").attr("class", "mycheckbox");
     li.append("span").text(dataset.key);
     const ulNested = li.append("ul").attr("class", "nested");
 
@@ -109,10 +108,13 @@ plotChart = (data, xValueKey, yValueKey) => {
         .append("li")
         .text(wellData.key)
         .append("input")
-        .attr("type", "checkbox");
+        .attr("type", "checkbox")
+        .attr("class", "mycheckbox");
     });
   });
+
   d3.selectAll(".caret").on("click", () => {
+    // d3.select(this).select(".nested")
     d3.select(".caret .nested").classed(
       "active",
       (d, i, nodes) => !d3.select(nodes[i]).classed("active")
@@ -124,10 +126,7 @@ plotChart = (data, xValueKey, yValueKey) => {
     );
   });
 
-  // const ul = d3.select("ul");
-  // sumstat.forEach(function (data) {
-  //   ul.append("li").text(data.key);
-  // });
+  // d3.selectAll(".checkbox").on("change", update());
 
   // set color pallete for different variables
   const drainageName = sumstat.map((d) => d["well"]);
